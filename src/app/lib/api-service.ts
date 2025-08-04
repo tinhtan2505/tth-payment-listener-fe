@@ -22,8 +22,3 @@ export const login = async (username: string, password: string) => {
     throw new Error("Đăng nhập thất bại");
   }
 };
-
-export const isAuthenticated = (): boolean => {
-  const token = localStorage.getItem("token");
-  return !!token; // Trả về true nếu token tồn tại
-};

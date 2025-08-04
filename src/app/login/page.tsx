@@ -1,12 +1,12 @@
 "use client";
 import { Button, Checkbox, Form, Input, message } from "antd";
 import React from "react";
-// import { isAuthenticated, login } from "../../lib/api-service";
-import { useNavigate } from "react-router-dom";
-import { isAuthenticated, login } from "../lib/api-service";
+import { login } from "../lib/api-service";
+import { isAuthenticated } from "../utils/auth";
+import { useRouter } from "next/navigation";
 
 const Login: React.FC<object> = ({}) => {
-  //   const navigate = useNavigate();
+  const router = useRouter();
 
   interface LoginFormValues {
     username: string;
@@ -18,12 +18,15 @@ const Login: React.FC<object> = ({}) => {
     await login(values.username, values.password);
     if (isAuthenticated()) {
       message.success("Đăng nhập thành công!");
+      router.push("/home"); // <-- chuyển hướng
+    } else {
+      message.error("Đăng nhập thất bại!");
     }
   };
 
-  //   const onFinishFailed = (errorInfo: any) => {
-  //     console.log("Failed:", errorInfo);
-  //   };
+  // const onFinishFailed = (errorInfo: any) => {
+  //   console.log("Failed:", errorInfo);
+  // };
   return (
     <div className="flex justify-center items-center h-screen bg-gray-100">
       <div className="bg-white p-8 rounded-lg shadow-md w-96">
