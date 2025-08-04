@@ -18,7 +18,7 @@ const Login: React.FC<object> = ({}) => {
     await login(values.username, values.password);
     if (isAuthenticated()) {
       message.success("Đăng nhập thành công!");
-      router.push("/home"); // <-- chuyển hướng
+      router.push("/"); // <-- chuyển hướng
     } else {
       message.error("Đăng nhập thất bại!");
     }
