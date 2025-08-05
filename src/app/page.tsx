@@ -42,7 +42,6 @@ export default function Home() {
 
       {/* Main layout */}
       <Layout>
-        {/* Header */}
         <Header className="bg-white flex justify-end items-center px-6 shadow-sm">
           <Button
             type="primary"
