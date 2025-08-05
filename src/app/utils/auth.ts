@@ -1,6 +1,9 @@
-// utils/auth.ts
+import { message } from "antd";
+
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+
 export const login = async (username: string, password: string) => {
-  const response = await fetch("/api/auth/login", {
+  const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ username, password }),
@@ -11,6 +14,30 @@ export const login = async (username: string, password: string) => {
     return data;
   } else {
     throw new Error("Đăng nhập thất bại");
+  }
+};
+
+export const logout = async () => {
+  const token = localStorage.getItem("token");
+
+  if (!token) return;
+
+  try {
+    const response = await fetch(`${API_BASE_URL}/api/auth/logout`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (!response.ok) {
+      message.error("Logout không thành công phía server");
+    }
+    message.success("Đăng xuất thành công");
+  } catch (error) {
+    console.error("Lỗi khi gửi yêu cầu logout:", error);
+  } finally {
+    localStorage.removeItem("token");
   }
 };
 

@@ -28,6 +28,7 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        cz-shortcut-listen="true"
       >
         <Suspense fallback={null}>
           <ClientAuthWrapper>{children}</ClientAuthWrapper>
