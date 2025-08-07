@@ -48,15 +48,17 @@ const PaymentListener: React.FC = () => {
         ...values,
       });
       const result = await response.json();
+      const { message: msg } = result;
 
       if (!response.ok) {
-        message.error(result?.message || 'Lỗi không xác định');
-        throw new Error(result?.message || 'Lỗi không xác định');
+        message.error(msg || 'Lỗi không xác định');
+        throw new Error(msg || 'Lỗi không xác định');
       }
 
-      const { data } = result;
-      if (data) {
-        console.log(data);
+      message.success(msg || 'Gửi callback thành công');
+
+      if (result) {
+        console.log(result);
       }
     } catch (error: unknown) {
       if (error instanceof Error) {
