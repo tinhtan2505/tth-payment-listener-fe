@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import MainLayout from '../main-layout';
 import { Form, Input, Button, Card, Row, Col, message } from 'antd';
 import axios from 'axios';
+import { post } from '@/app/lib/api-service';
 const { TextArea } = Input;
 
 const PaymentListener: React.FC = () => {
@@ -34,15 +35,17 @@ const PaymentListener: React.FC = () => {
 
   const onFinish = async (values: PaymentFormValues) => {
     try {
-      const body = {
-        ...values,
-        addData: values.addData ? JSON.parse(values.addData) : [],
-      };
-      const res = await axios.post('/thanhtoanqrcode', body, {
-        headers: { 'Content-Type': 'application/json' },
-      });
-      message.success('Gửi callback thành công');
-      console.log(res.data);
+      const response = await post('vien-phi/get-options-tam-ung', values);
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result?.message || 'Lỗi không xác định');
+      }
+
+      const { data } = result;
+      if (data) {
+        console.log(data);
+      }
     } catch (error: unknown) {
       if (error instanceof Error) {
         console.error(error.message);
