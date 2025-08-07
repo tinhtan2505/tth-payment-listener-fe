@@ -14,6 +14,7 @@ export function post(
   if (token) {
     headers['Authorization'] = `Bearer ${token}`;
   }
+  console.log('data', data);
 
   const requestOptions: RequestInit = {
     method: 'POST',

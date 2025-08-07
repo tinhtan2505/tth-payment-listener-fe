@@ -33,12 +33,24 @@ const PaymentListener: React.FC = () => {
     addData?: string;
   }
 
+  interface QrCodeItemPayment {
+    productId: string;
+    amount: string;
+    tipAndFee: string;
+    ccy: string;
+    qty: string;
+    note: string;
+  }
+
   const onFinish = async (values: PaymentFormValues) => {
     try {
-      const response = await post('vien-phi/get-options-tam-ung', values);
+      const response = await post('tthgroup/api/thanhtoanqrcode', {
+        ...values,
+      });
       const result = await response.json();
 
       if (!response.ok) {
+        message.error(result?.message || 'Lỗi không xác định');
         throw new Error(result?.message || 'Lỗi không xác định');
       }
 
@@ -58,6 +70,22 @@ const PaymentListener: React.FC = () => {
 
   useEffect(() => {
     form.resetFields();
+    const addData: QrCodeItemPayment[] = [
+      {
+        // merchantType: '5045',
+        // serviceCode: '06',
+        // masterMerCode: 'A000000775',
+        // merchantCode: '0311609355',
+        // terminalId: 'FPT02',
+        productId: '',
+        amount: '100000',
+        tipAndFee: '0',
+        ccy: '704',
+        qty: '1',
+        note: '',
+      },
+    ];
+
     form.setFieldsValue({
       code: '00',
       message: 'Tru tien thanh cong, so trace 100550',
@@ -72,25 +100,8 @@ const PaymentListener: React.FC = () => {
       merchantCode: '0311609355',
       terminalId: 'FPT02',
       ccy: '704',
-      checksum: '81F77683FEA4EBE2CE748AFC99CC3AE9',
-      addData: JSON.stringify(
-        [
-          {
-            merchantType: '5045',
-            serviceCode: '06',
-            masterMerCode: 'A000000775',
-            merchantCode: '0311609355',
-            terminalId: 'FPT02',
-            productId: '',
-            amount: '100000',
-            ccy: '704',
-            qty: '1',
-            note: '',
-          },
-        ],
-        null,
-        2
-      ),
+      checksum: '79246519D967DFBF75B03F7B090522AD',
+      addData,
     });
   }, []);
 
