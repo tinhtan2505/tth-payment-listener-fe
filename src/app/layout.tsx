@@ -1,22 +1,25 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
-import { Suspense } from "react";
-import ClientAuthWrapper from "./auth/ClientAuthWrapper";
+import type { Metadata } from 'next';
+import { Geist, Geist_Mono } from 'next/font/google';
+import './globals.css';
+import { Suspense } from 'react';
+import ClientAuthWrapper from './auth/ClientAuthWrapper';
 
 const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+  variable: '--font-geist-sans',
+  subsets: ['latin'],
 });
 
 const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  variable: '--font-geist-mono',
+  subsets: ['latin'],
 });
 
 export const metadata: Metadata = {
-  title: "TTH PAYMENT LISTENER",
-  description: "TTH PAYMENT LISTENER",
+  title: 'TTH PAYMENT LISTENER',
+  description: 'TTH PAYMENT LISTENER',
+  icons: {
+    icon: '/logotthhospital.svg',
+  },
 };
 
 export default function RootLayout({

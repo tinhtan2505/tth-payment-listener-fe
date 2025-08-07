@@ -1,9 +1,9 @@
 // components/ClientAuthWrapper.tsx
-"use client";
+'use client';
 
-import { useEffect } from "react";
-import { useRouter, usePathname } from "next/navigation";
-import { isAuthenticated } from "../utils/auth";
+import { useEffect } from 'react';
+import { useRouter, usePathname } from 'next/navigation';
+import { isAuthenticated } from '../modules/auth/lib/auth';
 
 export default function ClientAuthWrapper({
   children,
@@ -15,11 +15,11 @@ export default function ClientAuthWrapper({
   const isAuth = isAuthenticated();
 
   useEffect(() => {
-    if (!isAuth && pathname !== "/login") {
-      router.push("/login");
+    if (!isAuth && pathname !== '/login') {
+      router.push('/login');
     }
-    if (isAuth && pathname === "/login") {
-      router.push("/");
+    if (isAuth && pathname === '/login') {
+      router.push('/');
     }
   }, [isAuth, pathname, router]);
 
