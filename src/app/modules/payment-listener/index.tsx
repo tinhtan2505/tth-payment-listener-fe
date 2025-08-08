@@ -66,7 +66,6 @@ const PaymentListener: React.FC = () => {
       } else {
         console.error(error);
       }
-      message.error('Gửi callback thất bại');
     }
   };
 
@@ -92,9 +91,9 @@ const PaymentListener: React.FC = () => {
       code: '00',
       message: 'Tru tien thanh cong, so trace 100550',
       msgType: '1',
-      txnId: 'PTU250800000889_132654388',
+      txnId: 'PTU250800000889_1326',
       qrTrace: '000098469',
-      bankCode: 'VIETCOMBANK',
+      bankCode: 'MBBANK',
       mobile: '0989511021',
       accountNo: '',
       amount: '1000000',
@@ -102,7 +101,7 @@ const PaymentListener: React.FC = () => {
       merchantCode: '0311609355',
       terminalId: 'FPT02',
       ccy: '704',
-      checksum: 'E3A416DE35769DC041719ACA1A383693',
+      checksum: '56DA9C98706C9072695F4E17A540F3DC',
       addData,
     });
   }, []);
