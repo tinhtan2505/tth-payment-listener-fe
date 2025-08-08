@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import { Suspense } from 'react';
 import ClientAuthWrapper from './auth/ClientAuthWrapper';
+import AntdCompat from './antd-compat';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -33,9 +34,11 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         cz-shortcut-listen="true"
       >
-        <Suspense fallback={null}>
-          <ClientAuthWrapper>{children}</ClientAuthWrapper>
-        </Suspense>
+        <AntdCompat>
+          <Suspense fallback={null}>
+            <ClientAuthWrapper>{children}</ClientAuthWrapper>
+          </Suspense>
+        </AntdCompat>
       </body>
     </html>
   );

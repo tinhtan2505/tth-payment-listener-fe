@@ -92,7 +92,7 @@ const PaymentListener: React.FC = () => {
       code: '00',
       message: 'Tru tien thanh cong, so trace 100550',
       msgType: '1',
-      txnId: '50141',
+      txnId: 'PTU250800000889_132654388',
       qrTrace: '000098469',
       bankCode: 'VIETCOMBANK',
       mobile: '0989511021',
@@ -102,7 +102,7 @@ const PaymentListener: React.FC = () => {
       merchantCode: '0311609355',
       terminalId: 'FPT02',
       ccy: '704',
-      checksum: '79246519D967DFBF75B03F7B090522AD',
+      checksum: 'E3A416DE35769DC041719ACA1A383693',
       addData,
     });
   }, []);
