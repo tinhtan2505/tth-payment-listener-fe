@@ -4,7 +4,12 @@ import MainLayout from '../main-layout';
 import { Form, Input, Button, Card, Row, Col, message } from 'antd';
 import axios from 'axios';
 import { post } from '@/app/lib/api-service';
+import { encodeMD5LowerCase } from '@/app/lib/common-function';
 const { TextArea } = Input;
+
+const SECRET_KEY = '3J10jONB58yKWOocfRwEhvnKU3G69u5V';
+
+const safe = (v?: string) => (v ?? '').trim();
 
 const PaymentListener: React.FC = () => {
   const [form] = Form.useForm();
@@ -44,8 +49,25 @@ const PaymentListener: React.FC = () => {
 
   const onFinish = async (values: PaymentFormValues) => {
     try {
+      const raw = [
+        safe(values.code),
+        safe(values.msgType),
+        safe(values.txnId),
+        safe(values.qrTrace),
+        safe(values.bankCode),
+        safe(values.mobile),
+        safe(values.accountNo),
+        safe(values.amount),
+        safe(values.payDate),
+        safe(values.merchantCode),
+        SECRET_KEY,
+      ].join('|');
+
+      const checksum = encodeMD5LowerCase(raw);
+
       const response = await post('tthgroup/api/thanhtoanqrcode', {
         ...values,
+        checksum,
       });
       const result = await response.json();
       const { message: msg } = result;
@@ -91,17 +113,17 @@ const PaymentListener: React.FC = () => {
       code: '00',
       message: 'Tru tien thanh cong, so trace 100550',
       msgType: '1',
-      txnId: 'PTU250800000892_KA0E',
+      txnId: 'PTU250800002205_G1HZ',
       qrTrace: '000098469',
       bankCode: 'MBBANK',
       mobile: '0989511021',
       accountNo: '',
-      amount: '1000000',
+      amount: '100000',
       payDate: '20180807164732',
       merchantCode: '0311609355',
       terminalId: 'FPT02',
       ccy: '704',
-      checksum: 'E785A11F53D64FEB8CA1854071F4FAFD',
+      checksum: '7BC8794CEC9D570BA1B0F0EB8D211263',
       addData,
     });
   }, []);
